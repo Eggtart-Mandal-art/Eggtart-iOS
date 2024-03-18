@@ -17,7 +17,7 @@ let template = Template(
     attributes: [nameAttribute],
     items: [
         // MARK: - Project.swift
-        .file(path: "Project/Features\(nameAttribute)/Project.swift",
+        .file(path: "Projects/Features/\(nameAttribute)/Project.swift",
               templatePath: "stencil/project.stencil"),
         
         // MARK: - Sources
@@ -30,8 +30,12 @@ let template = Template(
         .file(path: "Projects/Features/\(nameAttribute)/Demo/Sources/SceneDelegate.swift",
               templatePath: "stencil/sceneDelegate.stencil"),
         
+        // MARK: - Tests
+        .file(path: "Projects/Features/\(nameAttribute)/Tests/Sources/empty.swift",
+              templatePath: "stencil/emptyFile.stencil"),
+        
         // MARK: - Interface
-        .file(path: "Projects/Features/\(nameAttribute)/Interface/empty.swift",
+        .file(path: "Projects/Features/\(nameAttribute)/Interface/Sources/empty.swift",
               templatePath: "stencil/emptyFile.stencil")
     ]
 )

@@ -11,7 +11,7 @@ public typealias Dep = TargetDependency
 
 public extension Dep {
     struct Features {
-        
+        public struct Main {}
     }
     
     struct Modules {
@@ -38,4 +38,12 @@ public extension Path {
     static var app: Self {
         return .relativeToRoot("Projects/AppModuls/")
     }
+}
+
+//MARK: Test
+public extension Dep.Features.Main {
+    static let group = "Main"
+    
+    static let Feature = Dep.Features.project(name: "Feature", group: group)
+    static let Interface = Dep.project(target: "\(group)FeatureInterface", path: .relativeToFeature("\(group)Feature"))
 }
