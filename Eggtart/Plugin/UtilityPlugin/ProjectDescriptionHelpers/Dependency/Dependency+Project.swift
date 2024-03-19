@@ -21,13 +21,13 @@ public extension Dep {
 }
 
 public extension Dep {
-    static let core = Dep.project(target: "Core", path: .core)
     static let domain = Dep.project(target: "Domain", path: .domain)
     static let shared = Dep.project(target: "Shared", path: .shared)
     static let thirdPartyLib = Dep.project(target: "ThirdPartyLib", path: .thirdPartyLib)
 }
 
 public extension Dep.Core {
+    static let core = Dep.project(target: "Core", path: .core)
     static let designKit = Dep.project(target: "DesignKit", path: .designKit)
     static let networkKit = Dep.project(target: "NetworkKit", path: .networkKit)
 }

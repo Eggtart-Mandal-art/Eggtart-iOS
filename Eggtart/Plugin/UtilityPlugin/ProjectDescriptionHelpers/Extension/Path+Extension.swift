@@ -14,11 +14,11 @@ public extension Path {
     }
     
     static var app: Self {
-        return .relativeToRoot("Projects/AppModuls/")
+        return .relativeToRoot("Projects/AppModuls")
     }
     
     static var core: Self {
-        return .relativeToRoot("Projects/Core")
+        return .relativeToRoot("Projects/Core/Core")
     }
     
     static var domain: Self {
@@ -30,7 +30,7 @@ public extension Path {
     }
     
     static var thirdPartyLib: Self {
-        return .relativeToRoot("Projects/ThirdPartyLib/")
+        return .relativeToRoot("Projects/ThirdPartyLib")
     }
     
     static var designKit: Self {

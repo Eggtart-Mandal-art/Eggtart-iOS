@@ -14,6 +14,7 @@ public extension Target {
         product: Product,
         hasResource: Bool,
         infoPlist: InfoPlist?,
+        sources: SourceFilesList?,
         script: [TargetScript],
         dependencies: [TargetDependency],
         settings: Settings?
@@ -25,7 +26,7 @@ public extension Target {
             bundleId: CommonEnviroment.bundlePrefix,
             deploymentTargets: CommonEnviroment.deploymentTarget,
             infoPlist: infoPlist,
-            sources: ["Sources/**/*.swift"],
+            sources: sources,
             resources: hasResource == true ? [.glob(pattern: "Resources/**", excluding: [])] : [],
             scripts: script,
             dependencies: dependencies,

@@ -12,5 +12,8 @@ import UtilityPlugin
 let project = Project.makeModule(
     name: "RootFeature",
     targets: Set(FeatureTarget.microFeature),
-    internalDependencies: [.Features.Main.Feature]
+    internalDependencies: [
+        .Features.Main.Feature,
+        
+    ]
 )
