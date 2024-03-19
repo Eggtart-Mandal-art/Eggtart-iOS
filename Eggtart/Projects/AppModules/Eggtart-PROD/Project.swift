@@ -10,7 +10,7 @@ import ProjectDescriptionHelpers
 import UtilityPlugin
 
 let project = Project.makeModule(name: "\(Environment.appName)-PROD", 
-                                 target: [.app],
+                                 targets: [.app],
                                  internalDependencies: [
                                     .Features.rootFeature
                                  ])

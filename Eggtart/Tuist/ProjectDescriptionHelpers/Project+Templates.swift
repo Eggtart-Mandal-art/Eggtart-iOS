@@ -13,7 +13,7 @@ public extension Project {
     // Project에서 모듈을 생성하는 static 함수
     static func makeModule(
         name: String,
-        target: Set<FeatureTarget>,
+        targets: Set<FeatureTarget>,
         packages: [Package] = [],
         internalDependencies: [TargetDependency] = [],  // 모듈간 의존성
         externalDependencies: [TargetDependency] = [],  // 외부 라이브러리 의존성
@@ -27,7 +27,7 @@ public extension Project {
         let baseSettings: SettingsDictionary = .baseSettings
         
         // MARK: - AppModule
-        if target.contains(.app) {
+        if targets.contains(.app) {
             let setting = baseSettings.setAutomaticProvisioning()
             
             if name.contains("Prod") {
@@ -51,16 +51,15 @@ public extension Project {
         }
         
         // MARK: - Demo Module
-        if target.contains(.demo) {
+        if targets.contains(.demo) {
             let setting = baseSettings.setAutomaticProvisioning()
             
             // MicroFeature에서 DemoApp은 Feautre, Testing 파일을 의존하기 때문에 두 모듈을 의존하게 해줍니다
             let dependencies: [TargetDependency] = [
-                .target(name: name, condition: .none),
-                .target(name: name + "Testing", condition: .none)
+                .target(name: "\(name)"),
             ]
             
-            projectTargets.append(.makeTarget(name: name,
+            projectTargets.append(.makeTarget(name: "\(name)Demo",
                                               product: .app,
                                               hasResource: hasResourse,
                                               infoPlist: .default,
@@ -73,16 +72,15 @@ public extension Project {
         }
         
         // MARK: - Tests Module
-        if target.contains(.tests) {
+        if targets.contains(.tests) {
             let setting = baseSettings.setAutomaticProvisioning()
             
             // MicroFeature에서 Tests은 Demo와 동일하게 Feautre, Testing 파일을 의존하기 때문에 두 모듈을 의존하게 해줍니다
             let dependencies: [TargetDependency] = [
-                .target(name: "\(name)Testing"),
                 .target(name: "\(name)")
             ]
             
-            projectTargets.append(.makeTarget(name: name,
+            projectTargets.append(.makeTarget(name: "\(name)Test",
                                               product: .unitTests,
                                               hasResource: hasResourse,
                                               infoPlist: .extendingDefault(with: Project.infoPlist),
@@ -94,34 +92,13 @@ public extension Project {
             )
         }
         
-        // MARK: - Testing Module
-        if target.contains(.testing) {
-            let setting = baseSettings.setAutomaticProvisioning()
-            
-            // MicroFeature에서 Testing은 Interface 모듈만을 의존합니다
-            let dependencies: [TargetDependency] = [
-                .target(name: "\(name)Interface")
-            ]
-            
-            projectTargets.append(.makeTarget(name: name,
-                                              product: .app,
-                                              hasResource: hasResourse,
-                                              infoPlist: .extendingDefault(with: Project.infoPlist),
-                                              script: [],
-                                              dependencies: dependencies,
-                                              settings: .settings(base: setting,
-                                                                  configurations: XCConfig.framework)
-                                             )
-            )
-        }
-        
         // MARK: - Interface Module
-        if target.contains(.interface) {
+        if targets.contains(.interface) {
             let setting = baseSettings.setAutomaticProvisioning()
             
             // MicroFeature에서 Interface는 한 Feature의 최하위입니다.
-            projectTargets.append(.makeTarget(name: name,
-                                              product: .app,
+            projectTargets.append(.makeTarget(name: "\(name)Interface",
+                                              product: .framework,
                                               hasResource: hasResourse,
                                               infoPlist: .extendingDefault(with: Project.infoPlist),
                                               script: [],
@@ -133,17 +110,19 @@ public extension Project {
         }
         
         // MARK: - Framework Source
-        if target.contains(where: { $0.isFramework }) {
+        if targets.contains(where: { $0.isFramework }) {
             let setting = baseSettings.setAutomaticProvisioning()
             
-            let dependencies = internalDependencies + externalDependencies
+            let dependencies:[TargetDependency] = targets.contains(.interface)
+            ? [.target(name: "\(name)Interface")]
+            : []
             
             projectTargets.append(.makeTarget(name: name,
                                               product: .framework,
                                               hasResource: hasResourse,
                                               infoPlist: .default,
                                               script: [],
-                                              dependencies: dependencies,
+                                              dependencies: dependencies + internalDependencies + externalDependencies,
                                               settings: .settings(base: setting)
                                              )
             )
@@ -156,7 +135,7 @@ public extension Project {
             packages: packages,
             settings: .settings(configurations: configuration),
             targets: projectTargets,
-            schemes: [target.contains(.demo)
+            schemes: [targets.contains(.demo)
                       ? Scheme.makeDemoScheme(configs: configurationName, name: name)
                       : Scheme.makeScheme(configs: configurationName, name: name)
                      ]
