@@ -14,9 +14,22 @@ public extension Dep {
         
     }
     
-    struct Modules {
-        
+    struct Core {
+        public struct DesignKit {}
+        public struct NetworkKit {}
     }
+}
+
+public extension Dep {
+    static let core = Dep.project(target: "Core", path: .core)
+    static let domain = Dep.project(target: "Domain", path: .domain)
+    static let shared = Dep.project(target: "Shared", path: .shared)
+    static let thirdPartyLib = Dep.project(target: "ThirdPartyLib", path: .thirdPartyLib)
+}
+
+public extension Dep.Core {
+    static let designKit = Dep.project(target: "DesginKit", path: .designKit)
+    static let networkKit = Dep.project(target: "NetworkKit", path: .networkKit)
 }
 
 public extension Dep.Features {
@@ -25,17 +38,10 @@ public extension Dep.Features {
     static let rootFeature = TargetDependency.project(target: "RootFeature", path: .relativeToFeature("RootFeature"))
 }
 
-public extension Path {
+//MARK: Features
+public extension Dep.Features.Main {
+    static let group = "Main"
     
-    static func relativeToFeature(_ path: String) -> Self {
-        return .relativeToRoot("Projects/Features/\(path)")
-    }
-    
-    static func relativeToModules(_ path: String) -> Self {
-        return .relativeToRoot("Projects/Modules/\(path)")
-    }
-    
-    static var app: Self {
-        return .relativeToRoot("Projects/AppModuls/")
-    }
+    static let Feature = Dep.Features.project(name: "Feature", group: group)
+    static let Interface = Dep.project(target: "\(group)FeatureInterface", path: .relativeToFeature("\(group)Feature"))
 }
