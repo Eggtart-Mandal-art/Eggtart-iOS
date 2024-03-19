@@ -19,7 +19,7 @@ public enum FeatureTarget: CaseIterable {
     // MicroFeature를 만들기위한 계산 속성
     public static var microFeature: [Self] {
         return [
-            .staticFramework,
+            .dynamicFramework,
             .interface,
             .demo,
             .tests
@@ -33,4 +33,6 @@ public enum FeatureTarget: CaseIterable {
         default: return false
         }
     }
+    
+    public var hasDynamicFramework: Bool { return self == .dynamicFramework }
 }

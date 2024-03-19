@@ -98,7 +98,9 @@ public extension Project {
             
             // MicroFeature에서 Interface는 한 Feature의 최하위입니다.
             projectTargets.append(.makeTarget(name: "\(name)Interface",
-                                              product: .framework,
+                                              product: targets.contains(.dynamicFramework)
+                                              ? .framework
+                                              : .staticLibrary,
                                               hasResource: hasResourse,
                                               infoPlist: .extendingDefault(with: Project.infoPlist),
                                               script: [],
@@ -118,7 +120,10 @@ public extension Project {
             : []
             
             projectTargets.append(.makeTarget(name: name,
-                                              product: .framework,
+                                              product: targets.contains(.dynamicFramework)
+                                              ? .framework
+                                              : .staticLibrary
+                                              ,
                                               hasResource: hasResourse,
                                               infoPlist: .default,
                                               script: [],

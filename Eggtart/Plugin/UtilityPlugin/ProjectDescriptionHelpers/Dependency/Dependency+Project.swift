@@ -28,7 +28,7 @@ public extension Dep {
 }
 
 public extension Dep.Core {
-    static let designKit = Dep.project(target: "DesginKit", path: .designKit)
+    static let designKit = Dep.project(target: "DesignKit", path: .designKit)
     static let networkKit = Dep.project(target: "NetworkKit", path: .networkKit)
 }
 
@@ -39,14 +39,6 @@ public extension Dep.Features {
 }
 
 //MARK: Features
-public extension Dep.Features.Main {
-    static let group = "Main"
-    
-    static let Feature = Dep.Features.project(name: "Feature", group: group)
-    static let Interface = Dep.project(target: "\(group)FeatureInterface", path: .relativeToFeature("\(group)Feature"))
-}
-
-//MARK: Test
 public extension Dep.Features.Main {
     static let group = "Main"
     

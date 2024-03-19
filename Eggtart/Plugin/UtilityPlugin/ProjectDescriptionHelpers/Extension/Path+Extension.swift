@@ -13,10 +13,6 @@ public extension Path {
         return .relativeToRoot("Projects/Features/\(path)")
     }
     
-    static func relativeToModules(_ path: String) -> Self {
-        return .relativeToRoot("Projects/Modules/\(path)")
-    }
-    
     static var app: Self {
         return .relativeToRoot("Projects/AppModuls/")
     }
@@ -26,7 +22,7 @@ public extension Path {
     }
     
     static var domain: Self {
-        return .relativeToRoot("Projects/Domain/")
+        return .relativeToRoot("Projects/Domain")
     }
     
     static var shared: Self {
@@ -38,11 +34,11 @@ public extension Path {
     }
     
     static var designKit: Self {
-        return .relativeToRoot("Projects/Core/DesignKit/")
+        return .relativeToRoot("Projects/Core/DesignKit")
     }
     
     static var networkKit: Self {
-        return .relativeToRoot("Projects/Core/NetworkKit/")
+        return .relativeToRoot("Projects/Core/NetworkKit")
     }
     
 }

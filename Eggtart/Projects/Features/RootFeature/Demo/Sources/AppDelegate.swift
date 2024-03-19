@@ -5,8 +5,6 @@
 //  Created by Junyoung on 3/18/24.
 //
 
-import UIKit
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 

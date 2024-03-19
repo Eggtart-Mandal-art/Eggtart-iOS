@@ -9,7 +9,8 @@ import ProjectDescription
 import ProjectDescriptionHelpers
 import UtilityPlugin
 
-let project = Project.makeModule(name: "RootFeature",
-                                 targets: [.dynamicFramework],
-                                 internalDependencies: [.Features.Main.Feature]
+let project = Project.makeModule(
+    name: "RootFeature",
+    targets: Set(FeatureTarget.microFeature),
+    internalDependencies: [.Features.Main.Feature]
 )

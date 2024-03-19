@@ -6,11 +6,13 @@
 //
 
 import ProjectDescription
+import ProjectDescriptionHelpers
 import UtilityPlugin
+
 
 let project = Project.makeModule(
     name: "Core",
-    targets: [.staticFramework],
+    targets: [.dynamicFramework],
     internalDependencies: [
         .Core.designKit,
         .Core.networkKit
