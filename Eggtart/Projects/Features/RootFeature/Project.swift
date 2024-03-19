@@ -10,6 +10,6 @@ import ProjectDescriptionHelpers
 import UtilityPlugin
 
 let project = Project.makeModule(name: "RootFeature",
-                                 target: [.dynamicFramework],
-                                 externalDependencies: [.SPM.Moya]
+                                 targets: [.dynamicFramework],
+                                 internalDependencies: [.Features.Main.Feature]
 )

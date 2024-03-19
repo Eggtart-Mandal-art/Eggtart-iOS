@@ -11,7 +11,7 @@ public typealias Dep = TargetDependency
 
 public extension Dep {
     struct Features {
-        
+        public struct Main {}
     }
     
     struct Core {
@@ -39,6 +39,14 @@ public extension Dep.Features {
 }
 
 //MARK: Features
+public extension Dep.Features.Main {
+    static let group = "Main"
+    
+    static let Feature = Dep.Features.project(name: "Feature", group: group)
+    static let Interface = Dep.project(target: "\(group)FeatureInterface", path: .relativeToFeature("\(group)Feature"))
+}
+
+//MARK: Test
 public extension Dep.Features.Main {
     static let group = "Main"
     
