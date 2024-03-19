@@ -18,7 +18,7 @@ public extension Path {
     }
     
     static var core: Self {
-        return .relativeToRoot("Projects/Core/")
+        return .relativeToRoot("Projects/Core")
     }
     
     static var domain: Self {
@@ -26,7 +26,7 @@ public extension Path {
     }
     
     static var shared: Self {
-        return .relativeToRoot("Projects/Shared/")
+        return .relativeToRoot("Projects/Shared")
     }
     
     static var thirdPartyLib: Self {
