@@ -2,18 +2,19 @@
 //  Project.swift
 //  ProjectDescriptionHelpers
 //
-//  Created by Junyoung on 3/13/24.
+//  Created by Junyoung on 3/19/24.
 //
 
 import ProjectDescription
 import ProjectDescriptionHelpers
 import UtilityPlugin
 
+
 let project = Project.makeModule(
-    name: "RootFeature",
-    targets: Set(FeatureTarget.microFeature),
+    name: "Core",
+    targets: [.dynamicFramework],
     internalDependencies: [
-        .Features.Main.Feature,
-        
+        .Core.designKit,
+        .Core.networkKit
     ]
 )

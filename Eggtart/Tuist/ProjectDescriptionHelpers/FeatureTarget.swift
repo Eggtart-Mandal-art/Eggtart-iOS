@@ -33,4 +33,6 @@ public enum FeatureTarget: CaseIterable {
         default: return false
         }
     }
+    
+    public var hasDynamicFramework: Bool { return self == .dynamicFramework }
 }

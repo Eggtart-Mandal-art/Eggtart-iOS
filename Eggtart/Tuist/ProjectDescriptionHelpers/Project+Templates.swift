@@ -40,6 +40,7 @@ public extension Project {
                                               product: .app,
                                               hasResource: hasResourse,
                                               infoPlist: .extendingDefault(with: Project.infoPlist),
+                                              sources: ["Sources/**/*.swift"],
                                               script: [],
                                               dependencies: [
                                                 internalDependencies,
@@ -63,6 +64,7 @@ public extension Project {
                                               product: .app,
                                               hasResource: hasResourse,
                                               infoPlist: .default,
+                                              sources: ["Demo/Sources/**/*.swift"],
                                               script: [],
                                               dependencies: dependencies,
                                               settings: .settings(base: setting,
@@ -84,6 +86,7 @@ public extension Project {
                                               product: .unitTests,
                                               hasResource: hasResourse,
                                               infoPlist: .extendingDefault(with: Project.infoPlist),
+                                              sources: ["Tests/Sources/**/*.swift"],
                                               script: [],
                                               dependencies: dependencies,
                                               settings: .settings(base: setting,
@@ -98,9 +101,12 @@ public extension Project {
             
             // MicroFeature에서 Interface는 한 Feature의 최하위입니다.
             projectTargets.append(.makeTarget(name: "\(name)Interface",
-                                              product: .framework,
+                                              product: targets.contains(.dynamicFramework)
+                                              ? .framework
+                                              : .staticLibrary,
                                               hasResource: hasResourse,
                                               infoPlist: .extendingDefault(with: Project.infoPlist),
+                                              sources: ["Interface/Sources/**/*.swift"],
                                               script: [],
                                               dependencies: interfaceDependencies,
                                               settings: .settings(base: setting,
@@ -118,9 +124,13 @@ public extension Project {
             : []
             
             projectTargets.append(.makeTarget(name: name,
-                                              product: .framework,
+                                              product: targets.contains(.dynamicFramework)
+                                              ? .framework
+                                              : .staticLibrary
+                                              ,
                                               hasResource: hasResourse,
                                               infoPlist: .default,
+                                              sources: ["Sources/**/*.swift"],
                                               script: [],
                                               dependencies: dependencies + internalDependencies + externalDependencies,
                                               settings: .settings(base: setting)
