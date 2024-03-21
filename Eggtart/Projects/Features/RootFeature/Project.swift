@@ -13,6 +13,7 @@ let project = Project.makeModule(
     name: "RootFeature",
     targets: [.dynamicFramework],
     internalDependencies: [
+        .Features.Splash.Feature,
         .Features.Main.Feature,
         .Features.Mandalart.Feature,
         .Features.Calendar.Feature,

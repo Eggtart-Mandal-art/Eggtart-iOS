@@ -16,6 +16,7 @@ public extension Dep {
         public struct MandalartEditor {}
         public struct Calendar {}
         public struct Setting {}
+        public struct Splash {}
     }
     
     struct Core {
@@ -43,6 +44,13 @@ public extension Dep.Features {
 }
 
 //MARK: Features
+public extension Dep.Features.Splash {
+    static let group = "Splash"
+    
+    static let Feature = Dep.Features.project(name: "Feature", group: group)
+    static let Interface = Dep.project(target: "\(group)FeatureInterface", path: .relativeToFeature("\(group)Feature"))
+}
+
 public extension Dep.Features.Main {
     static let group = "Main"
     
