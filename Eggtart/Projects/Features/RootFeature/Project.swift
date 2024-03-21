@@ -11,9 +11,11 @@ import UtilityPlugin
 
 let project = Project.makeModule(
     name: "RootFeature",
-    targets: Set(FeatureTarget.microFeature),
+    targets: [.dynamicFramework],
     internalDependencies: [
         .Features.Main.Feature,
-        
+        .Features.Mandalart.Feature,
+        .Features.Calendar.Feature,
+        .Features.Setting.Feature,
     ]
 )
