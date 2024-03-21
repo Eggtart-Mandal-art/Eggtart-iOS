@@ -3,7 +3,6 @@ import PackageDescription
 
 #if TUIST
     import ProjectDescription
-    import ProjectDescriptionHelpers
     import UtilityPlugin
 
 

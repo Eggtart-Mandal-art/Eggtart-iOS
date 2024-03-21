@@ -46,7 +46,7 @@ public extension Project {
                                                 internalDependencies,
                                                 externalDependencies
                                               ].flatMap { $0 },
-                                              settings: .settings(base: setting)
+                                              settings: .settings(base: setting, configurations: configuration)
                                              )
             )
         }

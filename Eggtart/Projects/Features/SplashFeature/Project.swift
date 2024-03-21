@@ -10,13 +10,8 @@ import ProjectDescriptionHelpers
 import UtilityPlugin
 
 let project = Project.makeModule(
-    name: "MainFeature",
+    name: "SplashFeature",
     targets: Set(FeatureTarget.microFeature),
-    internalDependencies: [
-        .Features.Mandalart.Interface,
-        .Features.Calendar.Interface,
-        .Features.Setting.Interface,
-    ],
     interfaceDependencies: [
         .domain
     ]
