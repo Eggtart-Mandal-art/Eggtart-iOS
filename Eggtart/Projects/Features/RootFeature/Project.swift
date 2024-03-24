@@ -16,6 +16,7 @@ let project = Project.makeModule(
         .Features.Splash.Feature,
         .Features.Main.Feature,
         .Features.Mandalart.Feature,
+        .Features.MandalartEditor.Feature,
         .Features.Calendar.Feature,
         .Features.Setting.Feature,
     ]

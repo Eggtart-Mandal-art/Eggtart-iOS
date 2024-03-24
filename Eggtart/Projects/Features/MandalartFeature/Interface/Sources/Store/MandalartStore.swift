@@ -7,7 +7,7 @@
 //
 
 import ComposableArchitecture
-
+import TCACoordinators
 
 public struct MandalartStore: Reducer {
     
@@ -17,7 +17,7 @@ public struct MandalartStore: Reducer {
     }
     
     public enum Action: Equatable {
-        
+        case tappedMandalart(Int)
     }
     
     public init() {}
@@ -25,7 +25,9 @@ public struct MandalartStore: Reducer {
     public var body: some Reducer<State, Action> {
         Reduce { state, action in
             switch action {
-                
+            case .tappedMandalart(let cardNumber):
+                print(cardNumber)
+                return .none
             }
         }
     }

@@ -7,23 +7,14 @@
 //
 
 import ComposableArchitecture
-import MandalartFeatureInterface
-
+import TCACoordinators
 import SwiftUI
 
 @Reducer
 public struct MainStore: Reducer {
     
-    let mandalartInterFace: MandalartInterface
-    
     @ObservableState
     public struct State: Equatable {
-        public static func == (lhs: MainStore.State, rhs: MainStore.State) -> Bool {
-            return lhs._$id == rhs._$id
-        }
-        
-        
-        var mandalArtView: AnyView? = nil
         
         public init() {}
     }
@@ -32,15 +23,12 @@ public struct MainStore: Reducer {
         case onAppear
     }
     
-    public init(mandalartInterFace: MandalartInterface) {
-        self.mandalartInterFace = mandalartInterFace
-    }
+    public init() { }
     
     public var body: some Reducer<State, Action> {
         Reduce { state, action in
             switch action {
             case .onAppear:
-                state.mandalArtView = mandalartInterFace.getMandalartView()
                 return .none
             }
         }

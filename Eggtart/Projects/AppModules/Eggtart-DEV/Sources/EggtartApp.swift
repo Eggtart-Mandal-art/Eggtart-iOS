@@ -14,15 +14,10 @@ import MainFeature
 struct EggtartApp: App {
     var body: some Scene {
         WindowGroup {
-            CoordinatorView(store: .init(
-                initialState: Coordinator.State(
-                    routes: [
-                        .root(.main(.init()),
-                              embedInNavigationView: true)
-                    ]
-                ),
+            RootCoordinatorView(store: .init(
+                initialState: RootCoordinator.State(),
                 reducer: {
-                    Coordinator()
+                    RootCoordinator()
             }))
         }
     }
