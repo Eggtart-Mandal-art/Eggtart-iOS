@@ -1,8 +1,9 @@
 //
-//  emptyFile.swift
-//  ProjectDescriptionHelpers
+//  empty.swift
+//  MandalartEditorFeatureDemo
 //
-//  Created by Junyoung on 3/18/24.
+//  Created by Junyoung on 3/24/24.
+//  Copyright © 2024 TuistTemplate. All rights reserved.
 //
 
 import Foundation

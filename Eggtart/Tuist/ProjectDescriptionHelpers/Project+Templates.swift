@@ -25,21 +25,32 @@ public extension Project {
         var configurationName: ConfigurationName = "DEV"
         let configuration = XCConfig.project
         let baseSettings: SettingsDictionary = .baseSettings
+        var budleId = CommonEnviroment.bundlePrefix
         
         // MARK: - AppModule
         if targets.contains(.app) {
             let setting = baseSettings.setAutomaticProvisioning()
             
-            if name.contains("Prod") {
+            var infoPlist: [String: Plist.Value]
+            
+            if name.contains("PROD") {
                 configurationName = "PROD"
-            } else if name.contains("Test") {
+                budleId += ".tart"
+                infoPlist = Project.infoPlist
+            } else if name.contains("QA") {
                 configurationName = "QA"
+                budleId += "tart.test"
+                infoPlist = Project.testInfoPlist
+            } else {
+                budleId += "tart.dev"
+                infoPlist = Project.devInfoPlist
             }
             
             projectTargets.append(.makeTarget(name: name,
                                               product: .app,
                                               hasResource: hasResourse,
-                                              infoPlist: .extendingDefault(with: Project.infoPlist),
+                                              bundleId: budleId,
+                                              infoPlist: .extendingDefault(with: infoPlist),
                                               sources: ["Sources/**/*.swift"],
                                               script: [],
                                               dependencies: [
@@ -63,7 +74,8 @@ public extension Project {
             projectTargets.append(.makeTarget(name: "\(name)Demo",
                                               product: .app,
                                               hasResource: hasResourse,
-                                              infoPlist: .default,
+                                              bundleId: budleId + ".\(name)Demo",
+                                              infoPlist: .extendingDefault(with: Project.moduleInfoPlist(name: "\(name)Demo", prefix: budleId)),
                                               sources: ["Demo/Sources/**/*.swift"],
                                               script: [],
                                               dependencies: dependencies,
@@ -82,10 +94,11 @@ public extension Project {
                 .target(name: "\(name)")
             ]
             
-            projectTargets.append(.makeTarget(name: "\(name)Test",
+            projectTargets.append(.makeTarget(name: "\(name)Tests",
                                               product: .unitTests,
                                               hasResource: hasResourse,
-                                              infoPlist: .extendingDefault(with: Project.infoPlist),
+                                              bundleId: budleId + ".\(name)Test",
+                                              infoPlist: .default,
                                               sources: ["Tests/Sources/**/*.swift"],
                                               script: [],
                                               dependencies: dependencies,
@@ -105,7 +118,8 @@ public extension Project {
                                               ? .framework
                                               : .staticLibrary,
                                               hasResource: hasResourse,
-                                              infoPlist: .extendingDefault(with: Project.infoPlist),
+                                              bundleId: budleId + ".\(name)Interface",
+                                              infoPlist: .default,
                                               sources: ["Interface/Sources/**/*.swift"],
                                               script: [],
                                               dependencies: interfaceDependencies,
@@ -129,6 +143,7 @@ public extension Project {
                                               : .staticLibrary
                                               ,
                                               hasResource: hasResourse,
+                                              bundleId: budleId + ".\(name)",
                                               infoPlist: .default,
                                               sources: ["Sources/**/*.swift"],
                                               script: [],
